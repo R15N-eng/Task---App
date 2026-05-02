@@ -9,6 +9,22 @@ Aplicação fullstack de gerenciamento de tarefas com React, Node.js, Express e 
 
 ---
 
+## Screenshot
+
+![Task App rodando](./screenshot.png)
+
+---
+
+## Sobre o projeto
+
+Esse foi meu primeiro projeto fullstack construído do zero — sem seguir uma videoaula passo a passo ou copiar código de uma aula. A ideia era sair do modo "máquina" e realmente entender o que estava fazendo.
+
+A parte mais difícil foi colocar em prática conhecimentos que eu só tinha visto de forma passiva. Muitos dos meus projetos anteriores eram cópias de aulas, então aqui eu precisei pensar por conta própria em cada decisão.
+
+O que aprendi de verdade: como linkar frontend com backend, como resolver bugs no terminal de forma consciente, e como cada camada da aplicação se comunica com a outra.
+
+---
+
 ## Funcionalidades
 
 - Criar, listar, editar e deletar tarefas (CRUD completo)
@@ -74,8 +90,8 @@ task-app/
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/R15N-eng/task-app.git
-cd task-app
+git clone https://github.com/R15N-eng/Task---App.git
+cd Task---App
 ```
 
 ### 2. Configure o banco de dados
@@ -84,17 +100,23 @@ cd task-app
 # Acesse o PostgreSQL
 psql -U postgres
 
-# Execute o script de criação
-\i backend/src/config/schema.sql
+# Execute os comandos
+CREATE DATABASE taskapp;
+\c taskapp
+CREATE TABLE tasks (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  completed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
 ```
 
 ### 3. Configure as variáveis de ambiente
 
 ```bash
-# Backend
 cd backend
 cp .env.example .env
-# Edite o .env com suas credenciais do PostgreSQL
+# Edite o .env com sua senha do PostgreSQL
 ```
 
 ### 4. Inicie o backend
@@ -119,40 +141,13 @@ npm run dev
 
 ## Rotas da API
 
-| Método | Rota          | Descrição              |
-|--------|---------------|------------------------|
-| GET    | /tasks        | Listar todas as tarefas|
-| GET    | /tasks/:id    | Buscar tarefa por ID   |
-| POST   | /tasks        | Criar nova tarefa      |
-| PUT    | /tasks/:id    | Atualizar tarefa       |
-| DELETE | /tasks/:id    | Deletar tarefa         |
-
-### Exemplo de requisição
-
-```bash
-# Criar tarefa
-curl -X POST http://localhost:3001/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title": "Estudar React"}'
-
-# Resposta
-{
-  "id": 1,
-  "title": "Estudar React",
-  "completed": false,
-  "created_at": "2025-01-01T12:00:00.000Z"
-}
-```
-
----
-
-## O que aprendi nesse projeto
-
-- Estruturar uma API REST com Express seguindo o padrão MVC (Model, Controller, Route)
-- Integrar front-end React com back-end Node.js usando `fetch`
-- Criar custom hooks para separar lógica de estado da UI
-- Tratamento de erros tanto no back-end (try/catch + status codes) quanto no front-end
-- Configurar banco PostgreSQL com queries parametrizadas (prevenção de SQL injection)
+| Método | Rota          | Descrição               |
+|--------|---------------|-------------------------|
+| GET    | /tasks        | Listar todas as tarefas |
+| GET    | /tasks/:id    | Buscar tarefa por ID    |
+| POST   | /tasks        | Criar nova tarefa       |
+| PUT    | /tasks/:id    | Atualizar tarefa        |
+| DELETE | /tasks/:id    | Deletar tarefa          |
 
 ---
 
